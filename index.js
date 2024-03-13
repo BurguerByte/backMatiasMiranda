@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
+const cors = require('cors'); // Importar cors
 
 const app = express();
 const port = 3000; // Puedes cambiar el puerto si es necesario
@@ -9,14 +10,17 @@ const port = 3000; // Puedes cambiar el puerto si es necesario
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// Configurar CORS para permitir solicitudes desde el origen de tu aplicación React
+app.use(cors());
+
 // Configurar el transporte para nodemailer
 const transporter = nodemailer.createTransport({
-  host: 'tu_servidor_smtp',
-  port: 587,
-  secure: false, // true para usar SSL
+  host: 'smtp.uvchile.cl', // Aquí reemplaza 'tu_proveedor.com' con la dirección del servidor SMTP
+  port: 587, // Puerto SMTP de la Universidad de Chile
+  secure: true, // Se recomienda usar SSL/TLS para mayor seguridad
   auth: {
-    user: 'tu_correo@cpanel.com',
-    pass: 'tu_contraseña'
+    user: 'matias@uvchile.cl', // Tu correo electrónico de la Universidad de Chile
+    pass: 'Emilia6655@', // Contraseña de tu correo electrónico
   }
 });
 
